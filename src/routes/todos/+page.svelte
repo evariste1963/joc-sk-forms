@@ -19,7 +19,7 @@
 			<span>{todo.text}</span>
 			<form on:submit|preventDefault={removeTodo} method="POST">
 				<input type="hidden" name="id" value={todo.id} />
-				<button class="delete" type="submit"> X </button>
+				<button class="delete" type="submit"> ⚔ </button>
 			</form>
 		</li>
 	{/each}
