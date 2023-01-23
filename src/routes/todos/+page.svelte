@@ -27,7 +27,7 @@
 
 <form on:submit|preventDefault={addTodo} method="POST">
 	<input type="text" name="todo" />
-	<button type="submit"> + Add Todo </button>
+	<button type="submit">➕ Add Todo</button>
 </form>
 
 <style>
