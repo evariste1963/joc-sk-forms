@@ -1,12 +1,48 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import type { PageData } from './$types';
+
+	type Data = {
+    success: boolean
+    errors: Record<string, string>
+}
+
 	export let data: PageData;
 
-	// todo
-	async function addTodo() {}
+	let form: Data;
 
-	//todo
-	async function removeTodo() {}
+	async function addTodo(event: Event) {
+		const formEl = event.target as HTMLFormElement
+		const data = new FormData(formEl)
+
+		const response = await fetch(formEl.action, {
+			method: 'POST',
+			body:data
+		})
+
+		const responseData = await response.json()
+
+		form = responseData
+
+		formEl.reset()
+
+		await invalidateAll()
+		
+		
+	}
+
+	
+	async function removeTodo(event: Event) {
+		const formEl = event.target as HTMLFormElement
+		const data = new FormData(formEl)
+
+		const response = await fetch(formEl.action, {
+			method: 'DELETE',
+			body: data
+		})
+
+		await invalidateAll()
+	}
 </script>
 
 <pre>
@@ -27,9 +63,16 @@
 
 <form on:submit|preventDefault={addTodo} method="POST">
 	<input type="text" name="todo" />
-	<button type="submit">➕ Add Todo</button>
+	{#if form?.errors.todo}
+	<p class="error">This field is RequestEventuired</p>
+		
+	{/if}
+	<button type="submit">➕   Add Todo</button>
 </form>
 
+{#if form?.success}
+<p>Added todo!  😁</p>
+{/if}
 <style>
 	ul {
 		padding: 0;
