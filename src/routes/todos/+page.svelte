@@ -1,59 +1,20 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
-	import type { PageData } from './$types';
-
-	type Data = {
-    success: boolean
-    errors: Record<string, string>
-}
+	import type {  ActionData, PageData } from './$types';
 
 	export let data: PageData;
-
-	let form: Data;
-
-	async function addTodo(event: Event) {
-		const formEl = event.target as HTMLFormElement
-		const data = new FormData(formEl)
-
-		const response = await fetch(formEl.action, {
-			method: 'POST',
-			body:data
-		})
-
-		const responseData = await response.json()
-
-		form = responseData
-
-		formEl.reset()
-
-		await invalidateAll()
-		
-		
-	}
-
+	export let form: ActionData
 	
-	async function removeTodo(event: Event) {
-		const formEl = event.target as HTMLFormElement
-		const data = new FormData(formEl)
-
-		const response = await fetch(formEl.action, {
-			method: 'DELETE',
-			body: data
-		})
-
-		await invalidateAll()
-	}
 </script>
 
 <pre>
-    {JSON.stringify(data, null, 2)}
+    {JSON.stringify(form, null, 2)}
 </pre>
 
 <ul>
 	{#each data.todos as todo}
 		<li>
 			<span>{todo.text}</span>
-			<form on:submit|preventDefault={removeTodo} method="POST">
+			<form method="POST" action='?/removeTodo'>
 				<input type="hidden" name="id" value={todo.id} />
 				<button class="delete" type="submit"> ⚔ </button>
 			</form>
@@ -61,13 +22,14 @@
 	{/each}
 </ul>
 
-<form on:submit|preventDefault={addTodo} method="POST">
+<form method="POST" action='?/addTodo'>
 	<input type="text" name="todo" />
-	{#if form?.errors.todo}
-	<p class="error">This field is RequestEventuired</p>
+	{#if form?.missing}
+	<p class="error">This field is Required</p>
 		
 	{/if}
 	<button type="submit">➕   Add Todo</button>
+	<button formaction='?/clearTodos' class='secondary' type='submit'>Clear Todos</button>
 </form>
 
 {#if form?.success}
