@@ -24,7 +24,7 @@
 </ul>
 
 <form method="POST" action="?/addTodo">
-	<input type="text" name="todo" bind:value={todoInputField} />
+	<input type="text" name="todo" bind:value={todoInputField} placeholder="create a todo" />
 	{#if form?.missing}
 		<p class="error">This field is Required</p>
 	{/if}
