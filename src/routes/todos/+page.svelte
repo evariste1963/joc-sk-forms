@@ -3,6 +3,8 @@
 
 	export let data: PageData;
 	export let form: ActionData;
+
+	let todoInputField = '';
 </script>
 
 <pre>
@@ -22,11 +24,11 @@
 </ul>
 
 <form method="POST" action="?/addTodo">
-	<input type="text" name="todo" />
+	<input type="text" name="todo" bind:value={todoInputField} />
 	{#if form?.missing}
 		<p class="error">This field is Required</p>
 	{/if}
-	<button type="submit">➕ Add Todo</button>
+	{#if todoInputField.length > 0}<button type="submit">➕ Add Todo</button>{/if}
 	<button formaction="?/clearTodos" class="secondary" type="submit">Clear Todos</button>
 </form>
 
