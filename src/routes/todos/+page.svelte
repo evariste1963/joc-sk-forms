@@ -1,20 +1,19 @@
 <script lang="ts">
-	import type {  ActionData, PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
-	export let form: ActionData
-	
+	export let form: ActionData;
 </script>
 
 <pre>
-    {JSON.stringify(form, null, 2)}
+    {JSON.stringify({ data, form }, null, 2)}
 </pre>
 
 <ul>
 	{#each data.todos as todo}
 		<li>
 			<span>{todo.text}</span>
-			<form method="POST" action='?/removeTodo'>
+			<form method="POST" action="?/removeTodo">
 				<input type="hidden" name="id" value={todo.id} />
 				<button class="delete" type="submit"> ⚔ </button>
 			</form>
@@ -22,19 +21,19 @@
 	{/each}
 </ul>
 
-<form method="POST" action='?/addTodo'>
+<form method="POST" action="?/addTodo">
 	<input type="text" name="todo" />
 	{#if form?.missing}
-	<p class="error">This field is Required</p>
-		
+		<p class="error">This field is Required</p>
 	{/if}
-	<button type="submit">➕   Add Todo</button>
-	<button formaction='?/clearTodos' class='secondary' type='submit'>Clear Todos</button>
+	<button type="submit">➕ Add Todo</button>
+	<button formaction="?/clearTodos" class="secondary" type="submit">Clear Todos</button>
 </form>
 
 {#if form?.success}
-<p>Added todo!  😁</p>
+	<p>Added todo! 😁</p>
 {/if}
+
 <style>
 	ul {
 		padding: 0;
