@@ -29,7 +29,9 @@
 		<p class="error">This field is Required</p>
 	{/if}
 	{#if todoInputField.length > 0}<button type="submit">➕ Add Todo</button>{/if}
-	<button formaction="?/clearTodos" class="secondary" type="submit">Clear Todos</button>
+	{#if data.todos.length > 0}<button formaction="?/clearTodos" class="secondary" type="submit"
+			>Clear Todos</button
+		>{/if}
 </form>
 
 {#if form?.success}
