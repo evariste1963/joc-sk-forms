@@ -43,7 +43,7 @@ return async ({update})=> {
 	{#if form?.missing}
 		<p class="error">This field is Required</p>
 	{/if}
-	{#if todoInputField.length > 1}<button aria-busy={loading} class:secodary={loading} type="submit">{#if !loading}➕ Add Todo {/if}</button>{/if}
+	{#if todoInputField.length > 1}<button aria-busy={loading} class:secondary={loading} type="submit">{#if !loading}➕ Add Todo {/if}</button>{/if}
 	{#if data.todos.length > 0}<button formaction="?/clearTodos" class="secondary" type="submit"
 			>Clear Todos</button
 		>{/if}
