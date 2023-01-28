@@ -10,11 +10,11 @@ export let form:ActionData
 </pre>
 
 <form method="POST" use:enhance>
-	<input type="text" name="user" value={form?.data?.user ?? ''} />
+	<input type="text" name="user" placeholder="user name" value={form?.data?.user ?? ''} />
 {#if form?.errors?.user}
 <p class="error"> Name is required </p>
 { /if}
-	<input type="password" name="password" value={form?.data?.password ?? ''} />
+	<input type="password" name="password" placeholder="password" value={form?.data?.password ?? ''} />
     {#if form?.errors?.password}
     <p class="error"> Password is required </p>
     { /if}
